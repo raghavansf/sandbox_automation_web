@@ -1,0 +1,42 @@
+<div class="jumbotron">
+    <div class="container">
+        <h1>Sandbox Provisioning Request Form</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <form action="/provision" method="post">
+                <div class="form-group">
+                    <label>Please submit your details for Sandbox request</label>
+                    <label for=""company_info>Company Information</label>
+                    <input type="text" class="form-control" name="companyInfo" id="companyInfo" placeholder="Company Information"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="partner_info">Partner Contact Information</label>
+                        <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name"/>
+                        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name"/>
+                        <input type="text" class="form-control" name="emailAddress" id="emailAddress" placeholder="Email Address"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="country_region">Country/Region</label>
+                        <select class="form-select" name="country">
+                           <option selected>Please select Country/Region</option>
+                           <option value="UK">United Kingdom</option>
+                           <option value="USA">United States Of America</option>
+                        </select>
+                    </div>
+                     <div class="form-group">
+                        <label>Additional Contacts</label>
+                        <input type="text" class="form-control" name="addnContactFullName1" id="addnContactFullName1" placeholder="Additional Contact FullName"/>
+                        <input type="text" class="form-control" name="addnContactEmailAddress1" id="addnContactEmailAddress1" placeholder="Additional Contact Email Address"/>
+                        <input type="text" class="form-control" name="addnContactFullName2" id="addnContactFullName2" placeholder="Additional Contact FullName"/>
+                        <input type="text" class="form-control" name="addnContactEmailAddress2" id="addnContactEmailAddress2" placeholder="Additional Contact Email Address"/>
+                    </div>
+                <button type="submit" class="btn btn-primary">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+</div>
