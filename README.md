@@ -1,5 +1,7 @@
 # How it Works
 
+NOTE: Please rename dotenv to .env and configure the relevant details before starting the application
+
 1. This application exposes REST api which will be called by CORE -WebToLead application for trial sandbox provisioning .
 2. Upon receiving requests will ingest the request metadata to data store (postgresql vs redis in consideration) .
 3. Application will be deployed in Heroku as Webapp
