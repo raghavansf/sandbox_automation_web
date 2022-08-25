@@ -10,12 +10,16 @@ NOTE: Please rename dotenv to .env and configure the relevant details before sta
 6. All the configurations are abstracted from code using dotenv npm package and load during the time it requires
 7. Used ES6 syntax and configured as "module" (refer package.json)
 
+
 ## Module Dependencies
 
 1. Dotenv
 2. postgresql
 3. Node14>= supported
 4. Express ,handle-bars (for basic UI templating)
+
+Util -  Install nodemon to monitor for the changes in your source and automatically restart your server -> npm install -g nodemon.
+Run nodemon http_test.js from your terminal.
 
 ## How to run
 

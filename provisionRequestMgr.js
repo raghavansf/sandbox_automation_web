@@ -2,6 +2,8 @@ import {} from 'dotenv/config';
 import pg from 'pg';
 const { Pool } = pg;
 
+import logger from './logger.js';
+
 const pgPool = new Pool({
   user: process.env.PGUSER,
   host: process.env.PGHOST,
@@ -10,12 +12,11 @@ const pgPool = new Pool({
   port: process.env.PGPORT,
 });
 export class ProvisionRequestMgr {
+
   async createProvisionRequest(provisionRequest) {
     try {
-      console.log(
-        'Ingesting provision request to the data store  ',
-        provisionRequest
-      );
+      logger.info('Ingesting provision request to the data store', { meta : provisionRequest });
+
       const client = await pgPool.connect();
       const result = await client
         .query(
@@ -37,16 +38,17 @@ export class ProvisionRequestMgr {
           return {
             status: 'Success',
             provisionRequestId: result.rows[0].id,
-            message: `Provisioned Request Initiated and ID for your  reference is ${result.rows[0].id}`,
+            message: `Provisioned Request Initiated and ID for your reference is ${result.rows[0].id}`,
           };
         });
       client.release();
       return result;
-    } catch (error) {
-      console.error(error.stack);
+    } catch (err) {
+      logger.log('error', 'createProvisionRequest:', err);
       return false;
     }
   }
+
   async getProvisionRequestDetails(provisionRequestID) {
     try {
       const client = await pgPool.connect();
@@ -57,7 +59,7 @@ export class ProvisionRequestMgr {
         )
         .then((result) => {
           if (result.rowCount <= 0) {
-            console.warn('No Record found for the id ', provisionRequestID);
+            logger.warn('No Record found for the id', provisionRequestID);
             return {
               message: `No Record found for the Provided Id [${provisionRequestID}]`,
             };
@@ -66,11 +68,12 @@ export class ProvisionRequestMgr {
         });
       client.release();
       return result;
-    } catch (error) {
-      console.error(error.stack);
+    } catch (err) {
+      logger.log('error', 'getProvisionRequestDetails:', err);
       return false;
     }
   }
+
   async expireProvisionedRequest(provisionRequestID) {
     try {
       const client = await pgPool.connect();
@@ -81,7 +84,7 @@ export class ProvisionRequestMgr {
         )
         .then((result) => {
           if (result.rowCount <= 0) {
-            console.log('No Record found for the id ', provisionRequestID);
+            logger.warn('No Record found for the id', provisionRequestID);
             return {
               message: `No Record found for the Provided Id [${provisionRequestID}]`,
             };
@@ -90,11 +93,8 @@ export class ProvisionRequestMgr {
         });
       client.release();
       return result;
-    } catch (error) {
-      console.log(
-        'Error occured while trying to update provision request for deletion',
-        error.stack
-      );
+    } catch (err) {
+      logger.log('error', 'expireProvisionedRequest:', err);
       return false;
     }
   }
@@ -110,7 +110,7 @@ export class ProvisionRequestMgr {
         )
         .then((result) => {
           if (result.rowCount <= 0) {
-            console.warn('No Record found for the id ', provisionRequestID);
+            logger.warn('No Record found for the id', provisionRequestID);
             return {
               message: `No Record found for the Provided Id [${provisionRequestID}]`,
             };
@@ -119,8 +119,8 @@ export class ProvisionRequestMgr {
         });
       client.release();
       return result;
-    } catch (error) {
-      console.error(error.stack);
+    } catch (err) {
+      logger.log('error', 'renewProvisionedRequest:', err);
       return false;
     }
   }
