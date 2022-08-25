@@ -1,7 +1,10 @@
 import express from 'express';
+// import log from 'npmlog';
+
 import { engine } from 'express-handlebars';
 import {} from 'dotenv/config';
 import { ProvisionRequestMgr } from './provisionRequestMgr.js';
+import logger from './logger.js';
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -40,15 +43,18 @@ const REQUEST_PROCESSING_STATUS = {
   PROVISIONED: 'SANDBOX_PROVISIONED',
 };
 
+
 // just config value testing ..
 app.use('/config', function (req, res) {
-  console.log('Displaying ENV values ..', process.env.DB_HOST);
+  logger.log('info', 'Displaying ENV values ..', { message : process.env.DB_HOST });
 });
 
 /**
  * This route is to initialize WebLead form  - For testing purposes!!!
  */
 app.get('/weblead', (req, res) => {
+  logger.log('info', 'weblead', { message : process.env.PGDATABSE });
+
   res.render('weblead');
 });
 /**
@@ -76,11 +82,14 @@ app.post('/provision', (req, res) => {
       },
     ],
   };
-  console.log('Received Provision Request  ', provisioningRequest);
+
+  logger.info('provision', { meta : provisioningRequest });
+
   const provisionMgr = new ProvisionRequestMgr();
   provisionMgr
     .createProvisionRequest(provisioningRequest)
-    .then((result) => res.json(result));
+    .then((result) => res.json(result))
+    .catch(err => logger.log('error', 'createProvisionRequest:', err));
   // Need to return response with Provisioned Request ID
 });
 /**
@@ -91,7 +100,8 @@ app.get('/provision/:requestId', (req, res) => {
   const provisionMgr = new ProvisionRequestMgr();
   provisionMgr
     .getProvisionRequestDetails(req.params.requestId)
-    .then((result) => res.json(result));
+    .then((result) => res.json(result))
+    .catch(err => logger.log('error', 'getProvisionRequestDetails:', err));
 });
 
 /**
@@ -103,14 +113,16 @@ app.post('/provision/delete/:requestId', (req, res) => {
   const provisionMgr = new ProvisionRequestMgr();
   provisionMgr
     .expireProvisionedRequest(req.params.requestId)
-    .then((result) => res.json(result));
+    .then((result) => res.json(result))
+    .catch(err => logger.log('error', 'expireProvisionedRequest:', err));
 });
 
 app.delete('/provision/:requestId', (req, res) => {
   const provisionMgr = new ProvisionRequestMgr();
   provisionMgr
     .expireProvisionedRequest(req.params.requestId)
-    .then((result) => res.json(result));
+    .then((result) => res.json(result))
+    .catch(err => logger.log('error', 'expireProvisionedRequest:', err));
 });
 
 /**
@@ -122,11 +134,10 @@ app.post('/provision/renew/:requestId', (req, res) => {
   const provisionMgr = new ProvisionRequestMgr();
   provisionMgr
     .renewProvisionedRequest(req.params.requestId)
-    .then((result) => res.json(result));
+    .then((result) => res.json(result))
+    .catch(err => logger.log('error', 'renewProvisionedRequest:', err));
 });
 
 app.listen(app.get('port'), () =>
-  console.log(
-    `Sandbox Provisioning Web App listening to port ${app.get('port')}`
-  )
+  logger.info(`Sandbox Provisioning Web App listening to port ${app.get('port')}`)
 );

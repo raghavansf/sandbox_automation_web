@@ -1,3 +1,5 @@
+CREATE SEQUENCE provision_req_id_seq;
+
 CREATE TABLE provision_req_t (
     id bigint DEFAULT nextval('provision_req_id_seq'::regclass) PRIMARY KEY UNIQUE,
     email_address text NOT NULL,
