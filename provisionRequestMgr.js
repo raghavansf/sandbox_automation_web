@@ -2,6 +2,9 @@ import {} from 'dotenv/config';
 import pg from 'pg';
 const { Pool } = pg;
 
+const dbURL = process.env.DATABSAE_URL;
+
+/*
 const pgPool = new Pool({
   user: process.env.PGUSER,
   host: process.env.PGHOST,
@@ -9,6 +12,11 @@ const pgPool = new Pool({
   password: process.env.PGPASSWORD,
   port: process.env.PGPORT,
 });
+*/
+const pgPool = new Pool({
+  dbURL,
+});
+
 export class ProvisionRequestMgr {
   async createProvisionRequest(provisionRequest) {
     try {
