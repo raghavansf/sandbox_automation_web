@@ -16,6 +16,8 @@
     "express": "^4.18.1",
     "express-handlebars": "^6.0.6",
     "npmlog": "^6.0.2",
-    "pg": "^8.7.3"
+    "pg": "^8.7.3",
+    "winston": "^3.8.1",
+    "winston-daily-rotate-file": "^4.7.1"
   }
 }
