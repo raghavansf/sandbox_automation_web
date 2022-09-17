@@ -3,7 +3,7 @@ import pg from 'pg';
 import logger from './logger.js';
 const { Pool } = pg;
 
-const dbURL = process.env.DATABSAE_URL;
+const dbURL = process.env.DATABASE_URL;
 /*
 const pgPool = new Pool({
   user: process.env.PGUSER,
@@ -18,10 +18,11 @@ const pgPool = new Pool({
 });
 
 export class ProvisionRequestMgr {
-
   async createProvisionRequest(provisionRequest) {
     try {
-      logger.info('Ingesting provision request to the data store', { meta : provisionRequest });
+      logger.info('Ingesting provision request to the data store', {
+        meta: provisionRequest,
+      });
 
       const client = await pgPool.connect();
       const result = await client
