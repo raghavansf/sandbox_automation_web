@@ -1,6 +1,5 @@
 import {} from 'dotenv/config';
 import pg from 'pg';
-import logger from './logger.js';
 const { Pool } = pg;
 
 const dbURL = process.env.DATABASE_URL;
@@ -26,7 +25,7 @@ export class ProvisionRequestMgr {
       );
 
       const client = await pgPool.connect();
-
+      console.log('Datastore connected successfully ', dbURL);
       const result = await client
         .query(
           `INSERT INTO "provision_req_t"
