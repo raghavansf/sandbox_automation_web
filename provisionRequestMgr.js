@@ -25,7 +25,7 @@ export class ProvisionRequestMgr {
       );
 
       const client = await pgPool.connect();
-      console.log('Datastore connected successfully ', dbURL);
+      console.log('Datastore connected successfully ', pgPool);
       const result = await client
         .query(
           `INSERT INTO "provision_req_t"
