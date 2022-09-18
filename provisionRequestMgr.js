@@ -2,7 +2,7 @@ import {} from 'dotenv/config';
 import pg from 'pg';
 const { Pool } = pg;
 
-const dbURL = process.env.DATABASE_URL;
+const dbURL = process.env.HEROKU_POSTGRESQL_ROSE_URL;
 /*
 const pgPool = new Pool({
   user: process.env.PGUSER,
