@@ -52,7 +52,7 @@ export class ProvisionRequestMgr {
         });
       client.release();
       return result;
-    } catch (err) {
+    } catch (error) {
       console.log('Error occured during createProvisionRequest', error);
       return false;
     }
@@ -77,7 +77,7 @@ export class ProvisionRequestMgr {
         });
       client.release();
       return result;
-    } catch (err) {
+    } catch (error) {
       console.log('Error occured during getProvisionRequestDetails', error);
       return false;
     }
@@ -102,7 +102,7 @@ export class ProvisionRequestMgr {
         });
       client.release();
       return result;
-    } catch (err) {
+    } catch (error) {
       console.log('Error occured during expireProvisionRequest', error);
       return false;
     }
@@ -128,7 +128,7 @@ export class ProvisionRequestMgr {
         });
       client.release();
       return result;
-    } catch (err) {
+    } catch (error) {
       console.log('Error occured during renewProvisionedRequest', error);
       return false;
     }
