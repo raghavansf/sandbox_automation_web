@@ -25,6 +25,7 @@ export class ProvisionRequestMgr {
       });
 
       const client = await pgPool.connect();
+
       const result = await client
         .query(
           `INSERT INTO "provision_req_t"
