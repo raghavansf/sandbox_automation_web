@@ -20,9 +20,10 @@ const pgPool = new Pool({
 export class ProvisionRequestMgr {
   async createProvisionRequest(provisionRequest) {
     try {
-      logger.info('Ingesting provision request to the data store', {
-        meta: provisionRequest,
-      });
+      console.log(
+        'Ingesting provision request to the data store',
+        provisionRequest
+      );
 
       const client = await pgPool.connect();
 
@@ -52,7 +53,7 @@ export class ProvisionRequestMgr {
       client.release();
       return result;
     } catch (err) {
-      logger.log('error', 'createProvisionRequest:', err);
+      console.log('Error occured during createProvisionRequest', error);
       return false;
     }
   }
@@ -67,7 +68,7 @@ export class ProvisionRequestMgr {
         )
         .then((result) => {
           if (result.rowCount <= 0) {
-            logger.warn('No Record found for the id', provisionRequestID);
+            console.log('No Record found for the id', provisionRequestID);
             return {
               message: `No Record found for the Provided Id [${provisionRequestID}]`,
             };
@@ -77,7 +78,7 @@ export class ProvisionRequestMgr {
       client.release();
       return result;
     } catch (err) {
-      logger.log('error', 'getProvisionRequestDetails:', err);
+      console.log('Error occured during getProvisionRequestDetails', error);
       return false;
     }
   }
@@ -92,7 +93,7 @@ export class ProvisionRequestMgr {
         )
         .then((result) => {
           if (result.rowCount <= 0) {
-            logger.warn('No Record found for the id', provisionRequestID);
+            console.log('No Record found for the id', provisionRequestID);
             return {
               message: `No Record found for the Provided Id [${provisionRequestID}]`,
             };
@@ -102,7 +103,7 @@ export class ProvisionRequestMgr {
       client.release();
       return result;
     } catch (err) {
-      logger.log('error', 'expireProvisionedRequest:', err);
+      console.log('Error occured during expireProvisionRequest', error);
       return false;
     }
   }
@@ -118,7 +119,7 @@ export class ProvisionRequestMgr {
         )
         .then((result) => {
           if (result.rowCount <= 0) {
-            logger.warn('No Record found for the id', provisionRequestID);
+            console.warn('No Record found for the id', provisionRequestID);
             return {
               message: `No Record found for the Provided Id [${provisionRequestID}]`,
             };
@@ -128,7 +129,7 @@ export class ProvisionRequestMgr {
       client.release();
       return result;
     } catch (err) {
-      logger.log('error', 'renewProvisionedRequest:', err);
+      console.log('Error occured during renewProvisionedRequest', error);
       return false;
     }
   }
