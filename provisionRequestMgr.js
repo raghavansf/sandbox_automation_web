@@ -13,7 +13,7 @@ const pgPool = new Pool({
 });
 */
 const pgPool = new Pool({
-  dbURL,
+  connectionString: dbURL,
 });
 
 export class ProvisionRequestMgr {
