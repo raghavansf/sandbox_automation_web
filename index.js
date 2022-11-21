@@ -61,7 +61,7 @@ app.get('/weblead', (req, res) => {
 app.post('/provision', (req, res) => {
   const body = req.body;
   const provisioningRequest = {
-    requestProcessingStatus: REQUEST_PROCESSING_STATUS.NEW,
+    requestProcessingStatus: REQUEST_PROCESSING_STATUS.DELETED,
     status: STATUS.REQUESTED,
     country: body.country,
     companyInfo: body.companyInfo,
