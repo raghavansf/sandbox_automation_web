@@ -42,7 +42,7 @@ export class ProvisionRequestMgr {
         )
         .then((result) => {
           return {
-            status: 'Success',
+            status: 'SANDBOX_REQUESTED',
             provisionRequestId: result.rows[0].id,
             message: `Provisioned Request Initiated and ID for your reference is ${result.rows[0].id}`,
           };
